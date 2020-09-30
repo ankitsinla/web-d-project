@@ -1,0 +1,56 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/admin"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+<div class="container">
+	<div class ="row" style="margin:auto;width:90%;">
+		<div class="col-lg-12">
+<h2 style='text-align:center;'>
+	Students Attendances
+</h2>
+<hr>
+<table class="table" style="width:80%;margin:auto;text-align:center">
+	<thead class="thead-dark">
+		<th  scope="col">Roll No</th>
+		<th  scope="col">Name</th>
+		<%var col=[];%>
+		<%profs.forEach(function(prof){%>
+			<%col.push(prof.subject);%>
+			<th  scope="col"><%=prof.subject%></th>
+		<%})%>
+	</thead>
+	<tbody>
+		<%students.forEach(function(student){%>
+			<tr>
+				<td><%=student.rollno%></td>
+				<td><%=student.name%></td>
+				<%attendance.forEach(function(attend){%>
+					<%if(student._id.equals(attend.stdId)){%>
+						<%col.forEach(function(sub){%>
+							<%attend.data.forEach(function(att){%>
+								<%if(att.subject == sub){%>
+									<%if(att.totalClasses == 0){%>
+										<td>No Classes</td>
+									<%}else{%>	
+										<%if(((att.classAttended/att.totalClasses)*100) < 75){%>
+										<td class="table-danger"><a href="/admin/stdinfo/<%=student._id%>/attend/<%=att.subject%>"><button class="btn btn-info btn-block"><%=((att.classAttended/att.totalClasses)*100)  %> %</button></a></td>
+										<%}else{%>
+										<td><a href="/admin/stdinfo/<%=student._id%>/attend/<%=att.subject%>"><button class="btn btn-info btn-block"><%=((att.classAttended/att.totalClasses)*100) %> %</button></a></td>
+										<%}%>
+				
+									<%}%>
+								<%}%>
+							<%})%>
+						<%})%>
+					<%}%>
+				<%})%>
+			</tr>
+		<%})%>
+	</tbody>
+</table>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<%- include("../partials/footer") %>

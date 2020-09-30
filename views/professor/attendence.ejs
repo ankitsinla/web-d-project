@@ -1,0 +1,35 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/prof/profile"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+<div class="container">
+	<div class ="row" style="margin:auto;width:60%;">
+		<div class="col-lg-12">
+			<form class="attend" action="/prof/<%=profId%>/attend/" method="POST" >
+				<h2>
+					Attendance
+				</h2>
+				<h4>
+					<%=date%>
+				</h4>
+
+				<% students.forEach(function(student){ %>
+				<div class="form-check">
+					<input   class="form-check-input" type="checkbox" id ="attend" value="p" name="user[<%=student._id%>]" >
+					<label class="form-check-label" for="attend">
+						<%=student.name%>
+					</label>
+				</div>
+				<% }) %>
+				<button class="btn btn-success">
+					Submit
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

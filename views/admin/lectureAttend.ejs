@@ -1,0 +1,59 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/admin"><button class="btn btn-secondary">Home</button></a>
+	<a href="/admin/profinfo/<%=prof._id%>"><button class="btn btn-secondary"><%=prof.name%> info</button></a>
+	<a href="/admin/professors"><button class="btn btn-secondary">Professors List</button></a>
+</div>
+
+<div class="container">
+	<div class="jumbotron " style="text-align:center">
+		<h1 class="text-center"><%=prof.name%></h1>
+	</div>
+
+	<h2 style='text-align:center;'>Attendance</h2>
+	<h4 style='text-align:center;'><%=date%></h4>
+	<div class="row"  style="margin:auto;">
+		<div class="col-lg-12">
+			<table class="table" style="width:60%;margin:auto;text-align:center">
+				<hr>
+				<thead class="thead-dark">
+				<tr>
+					<th  scope="col">Name</th>
+					<th  scope="col">status</th>
+				</tr>
+			  </thead>
+				<tbody>
+					<% attendance.forEach(function(att){ %>
+						<% att.data.forEach(function(at){ %>
+							<% if(at.subject == prof.subject){ %>
+								<% var flag =0; %>
+								<tr>
+									<% students.forEach(function(student){ %>
+										<% if(student._id.equals(att.stdId)){ %>
+											<td><%=student.name%></td>
+										<% } %>
+									<% }) %>
+									<% at.attendance.forEach(function(attendances){ %>
+										<% if(attendances.attendDate == date){ %>
+										<td><%= attendances.status %></td>
+											<% flag = 1; %>
+											<% return; %>
+										<% } %>
+									<% }) %>
+									<% if(flag == 0){ %>
+										<td>Absent</td>
+									<% } %>
+								</tr>
+							<% } %>
+						<% }) %>
+					<% }) %>
+				</tbody>
+			</table>
+			<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+		</div>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

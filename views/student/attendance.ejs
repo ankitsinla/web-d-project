@@ -1,0 +1,48 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h3><%=currentUser.username%></h3>
+	<a href="/std/profile"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+<div class="container">
+<h2>Attendance</h2>
+	<table class="table">
+	  <thead class="thead-dark">
+		<tr>
+			<th scope="col">Subject</th>
+			<th scope="col">Attendance</th>
+			<th scope="col">More Info</th>
+		</tr>
+	  </thead>
+		<tbody>
+			<%stdatd.data.forEach(function(std){%>
+					
+						<%if(std.totalClasses == 0){%>
+						<tr>
+							<td><%=std.subject%></td>
+							<td>No classes yet</td>
+						<%}else{%>
+							<%if(((std.classAttended/std.totalClasses)*100)<75){ %>
+								<tr class="table-danger">
+									<td><%=std.subject%></td>
+									<td><%=((std.classAttended/std.totalClasses)*100).toFixed(2)%> %</td>
+							<%}else{%>
+								<tr >
+									<td><%=std.subject%></td>
+									<td><%=((std.classAttended/std.totalClasses)*100).toFixed(2)%> %</td>
+							<%}%>
+						<%}%>
+						<td>
+							<a href="/std/<%=stdatd.stdId%>/fullAttend/<%=std.subject%>">
+								<button class="btn btn-secondary">more info</button>
+							</a>
+						</td>
+					</tr>
+			<%})%>
+			
+		</tbody>
+	</table>
+</div>
+
+<%- include("../partials/footer") %>

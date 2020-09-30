@@ -1,0 +1,18 @@
+<%- include("../partials/header") %>
+
+<div class='container'>
+	<div class="jumbotron" style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	</div>
+	<form action="/admin/profile/edit" method="POST">
+		<input type="text" placeholder="Name" name="adm[name]">
+		<input type="text" placeholder="College Id" name="adm[collegeId]">
+		<input type="text" placeholder="Mobile No." name="std[mobileNum]">
+		<button class="btn btn-primary">
+			Submit
+		</button>
+	</form>
+	
+</div>
+
+<%- include("../partials/footer") %>

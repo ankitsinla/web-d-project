@@ -1,0 +1,50 @@
+.buttons{
+	text-align:center;
+}
+
+.center-button{
+	padding-top:20%;
+}
+
+button{
+	margin-bottom:10px;
+}
+
+
+.jumbotron img{
+	width:140px;
+	height:200px;
+}
+
+form{
+	width:30%;
+	margin:0 auto;
+	
+}
+
+span+h2{
+	text-align:right;
+}
+
+.attend{
+	margin:auto;
+}
+
+.loginform{
+	width:30%;
+}
+
+.login{
+	margin:300px;
+	padding-top:100px;
+}
+
+.card-title{
+	text-align:center;
+}
+
+.newuser{
+	background:pink;
+	width:50%;
+	margin:auto;
+}

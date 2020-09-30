@@ -1,0 +1,90 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/admin"><button class="btn btn-secondary">Home</button></a>	
+	<a href="/admin/professors"><button class="btn btn-secondary">Professors List</button></a>
+</div>
+
+<div class="container">
+	<div class="jumbotron " style="text-align:center">
+		<h1 class="text-center"><%=prof.name%></h1>
+	</div>
+    <div class="row"  style="margin:auto;">
+		<div class="col-lg-12">
+        <h2 class="text-center "><%=prof.name%></h2>
+       
+		<table class="table table-bordered table-info" style="width:70%;margin:auto;text-align:center">
+			<tr>
+				<td>College Id</td>
+				<td><%=prof.collegeId%></td>
+			</tr>
+			<tr>
+				<td>Subject</td>
+				<td><%=prof.subject%></td>
+			</tr>
+			<tr>
+				<td>Mobile No.</td>
+				<td><%=prof.mobileNum%></td>
+			</tr>
+			<tr>
+				<td>Email Id</td>
+				<td><%=prof.email%></td>
+			</tr>
+		</table>
+		
+		<hr>
+			
+		<h2 class="text-center">Attendance</h2>
+		<table class="table" style="width:40%;margin:10px auto;text-align:center">
+			<thead class="thead-dark">
+				<tr>
+				  <th scope="col">Class Dates</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% prof.date.forEach(function(dt){ %>
+				<tr>
+					<td>
+						<a href="/admin/prof/<%=prof._id%>/atend/<%= dt %>"><button class="btn btn-info"><%= dt %></button></a>
+					</td>
+				</tr>
+				<%})%>
+			</tbody>
+		</table>
+			
+			
+		<hr>
+			
+	 <div class="row">
+      <div class="col-md-6 m-auto">
+        <h3 class="text-center">Assignments</h3>
+		<% if(files){ %>
+					<% var flag =0; %>
+					<% files.forEach(function(file) { %>
+						<% prof.assignments.forEach(function(assignment){ %>
+							<% if(file._id.equals(assignment.id)){ %>
+								<% flag =1; %>
+								<div class="card card-body mb-3">
+									<a href = "/prof/<%=prof._id%>/files/<%= file.filename %>" target = "_blank"><%= assignment.topic %></a>
+								</div>
+							<% } %>
+						<% }) %>
+					<% }) %>
+				  <% if(flag == 0){ %>
+					<p>No Assignments</p>
+				  <% } %>
+		<% } else { %>
+			<p>No Assignments</p>
+		<% } %>
+		</div>
+	</div>
+		<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+				
+		
+
+      </div>
+    </div>
+  </div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,38 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/std/profile"><button class="btn btn-secondary">Home</button></a>	
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 m-auto">
+        <h1 class="text-center display-4 my-4">Assignments</h1>
+		<em><hr></em>
+<% if(files){ %>
+	<% profs.forEach(function(prof) { %>
+		 <h2 class="text-center display-4 my-4"><%=prof.subject%></h2>
+		<% var flag =0; %>
+		<% files.forEach(function(file) { %>
+		<% prof.assignments.forEach(function(assignment){ %>
+			<% if(file._id.equals(assignment.id)){ %>
+				<% flag =1; %>
+				<div class="card card-body mb-3">
+					<a href = "/prof/<%=prof._id%>/files/<%= file.filename %>" target = "_blank"><%= assignment.topic %></a>
+				</div>
+		  		<hr>
+			<% } %>
+		<% }) %>
+		<% }) %>
+		<% if(flag == 0){ %>
+			<p class="text-center display-4 my-4">No Assignments</p><hr>
+		<% } %>
+	<% }) %>
+<% } else { %>
+	<h4 class="text-center display-4 my-4">No Assignments</h4>
+<% } %>
+      </div>
+    </div>
+  </div>
+
+<%- include("../partials/footer") %>

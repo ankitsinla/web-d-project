@@ -1,0 +1,102 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/prof/profile"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+
+<h2 style='text-align:center;'>
+	Feed Marks
+</h2>
+<form action="/prof/<%=prof._id%>/feedmarks" method="POST">
+
+<table class="table" style="width:80%;margin:auto;text-align:center">
+	<thead  class="thead-dark">
+		<th  scope="col">Roll No.</th>
+		<th  scope="col">Name</th>
+		<th  scope="col">First term</th>
+		<th  scope="col">Second term</th>
+		<th  scope="col">Internal</th>
+		<th  scope="col">Semester</th>
+	</thead>
+	<tbody>
+		<%students.forEach(function(student){%>
+			<%marks.forEach(function(mark){%>
+				<%if(student._id.equals(mark.stdId)){%>
+				<tr>
+				<td><%=student.rollno%></td>
+				<td><%=student.name%></td>
+				<%mark.subjects.forEach(function(subject){%>
+					<%if(subject.profId.equals(prof._id)){%>
+						<%if(prof.activeMarksFeed == "fterm"){%>
+							<%if(subject.fterm.feed == "false"){%>
+								<td><input type="number" min="0" max ="100"  name="first[<%=student._id%>]"></td>
+							<%}else{%>
+								<td><input type="number" min="0" max ="100"  name="first[<%=student._id%>]" value=<%=subject.fterm.marks%>></td>
+							<%}%>
+						<%}else{%>
+							<%if(subject.fterm.feed == "false"){%>
+								<td>-</td>
+							<%}else{%>
+								<td><%=subject.fterm.marks%></td>
+							<%}%>
+						<%}%>
+					
+						<%if(prof.activeMarksFeed == "sterm"){%>
+							<%if(subject.sterm.feed == "false"){%>
+								<td><input type="number" min="0" max ="100"  name="second[<%=student._id%>]"></td>
+							<%}else{%>
+								<td><input type="number" min="0" max ="100"  name="second[<%=student._id%>]" value="subject.sterm.marks"></td>
+							<%}%>
+						<%}else{%>
+							<%if(subject.sterm.feed == "false"){%>
+								<td>-</td>
+							<%}else{%>
+								<td><%=subject.sterm.marks%></td>
+							<%}%>
+						<%}%>
+						<%if(prof.activeMarksFeed == "internal"){%>
+							<%if(subject.internal.feed == "false"){%>
+								<td><input type="number" min="0" max ="100"  name="first[<%=student._id%>]"></td>
+							<%}else{%>
+								<td><input type="number" min="0" max ="100"  name="first[<%=student._id%>]" value="subject.internal.marks"></td>
+							<%}%>
+						<%}else{%>
+							<%if(subject.internal.feed == "false"){%>
+								<td>-</td>
+							<%}else{%>
+								<td><%=subject.internal.marks%></td>
+							<%}%>
+						<%}%>
+						<%if(prof.activeMarksFeed == "sem"){%>
+							<%if(subject.sem.feed == "false"){%>
+								<td><input type="number" min="0" max ="100"  name="first[<%=student._id%>]"></td>
+							<%}else{%>
+								<td><input type="number" min="0" max ="100"  name="first[<%=student._id%>]" value="subject.sem.marks"></td>
+							<%}%>
+						<%}else{%>
+							<%if(subject.sem.feed == "false"){%>
+								<td>-</td>
+							<%}else{%>
+								<td><%=subject.sem.marks%></td>
+							<%}%>
+						<%}%>
+					<%}%>
+				<%})%>
+				<%}%>	
+			<%})%>	
+		<%})%>
+	</tbody>
+	
+</table>
+	<div style="text-align:center;">
+		<button class="btn btn-success" >
+			Submit
+		</button>
+	</div>
+
+		
+</form>
+
+<%- include("../partials/footer") %>

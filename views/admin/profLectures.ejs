@@ -1,0 +1,35 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/admin"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+<div class="container">
+	<h1 class="text-center display-4 my-4"><%=prof.name%> </h1>
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+		  <th scope="col">Class Dates</th>
+		</tr>
+  	</thead>
+	<tbody>
+		<%if(prof.date.length==0){ %>
+			<td>No Lectures</td>
+		<%}else{ %>
+			<% prof.date.forEach(function(dt){ %>
+			<tr>
+				<td>
+					<button>
+						<a href="/admin/prof/<%=prof._id%>/atend/<%= dt %>"><%= dt %></a>
+					</button>
+				</td>
+			</tr>
+			<%})%>
+		<%}%>
+			
+	</tbody>
+</table>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+
+<div class="container">
+	<h2>
+		<%=book.name%>
+	</h2>
+	<form action="/books/<%=book._id%>?_method=PUT" method="POST">
+		<div class="form-group">
+    		<label for="nameEdit">Name</label>
+    		<input type="text" name="book[name]" class="form-control" id="nameEdit" value="<%=book.name%>">
+  		</div>
+		<div class="form-group">
+    		<label for="imageEdit">Image</label>
+    		<input type="text" name="book[image]" class="form-control" id="imageEdit" value="<%=book.image%>">
+  		</div>
+		<div class="form-group">
+    		<label for="bodyEdit">Description</label>
+    		<input type="text" name="book[body]" class="form-control" id="boodyEdit" value="<%=book.body%>">
+  		</div>
+		<input type='Submit' class="btn btn-primary">
+	</form>
+</div>
+
+<%- include("partials/footer") %>

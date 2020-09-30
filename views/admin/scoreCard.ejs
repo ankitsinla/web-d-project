@@ -1,0 +1,114 @@
+<%- include("../partials/header") %>
+
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/admin"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+<div class="container">
+	<div class ="row" style="margin:auto;width:90%;">
+		<div class="col-lg-12">
+
+		<h2 style='text-align:center;'>
+			Students Score
+		</h2>
+		<form action ="/admin/activeFeed" method="POST" style='text-align:center;'>
+			<h4>
+				Active Marks Feeding
+			</h4>
+			<label for="std">First term</label>
+			<input name="exam" value="fterm" id="std" type="radio" >
+			<label for="prof">Second term</label>
+			<input name="exam" id="prof" value="sterm" type="radio">
+			<label for="admin">Internal</label>
+			<input name="exam" id="admin" value="internal" type="radio">
+			<label for="admin">Semester</label>
+			<input name="exam" id="admin" value="sem" type="radio">
+			<label for="admin">Block Marks Feeding</label>
+			<input name="exam" id="admin" value="false" type="radio" >
+			<br>
+			<button class="btn btn-success">
+				submit
+			</button>
+		</form>
+
+		<table class="table" style="width:80%;margin:auto;text-align:center">
+			<hr>
+			<thead  class="thead-dark">
+				<th  scope="col">Roll No</th>
+				<th  scope="col">Name</th>
+				<%var col=[];%>
+				<%profs.forEach(function(prof){%>
+					<%col.push(prof._id);%>
+					<th  scope="col"><%=prof.subject%></th>
+				<%})%>
+				<th  scope="col">Percent</th>
+			</thead>
+			<tbody>
+
+				<%students.forEach(function(student){%>
+					<%var total =0; %>
+					<%var n=0; %>
+					<tr>
+						<td><%=student.rollno%></td>
+						<td><%=student.name%></td>
+						<%stdmarks.forEach(function(marks){%>
+							<%if(student._id.equals(marks.stdId)){%>
+								<%col.forEach(function(sub){%>
+									<%marks.subjects.forEach(function(subject){%>
+										<%if(subject.profId.equals(sub)){%>
+											<%profs.forEach(function(prof){%>
+												<%if(subject.profId.equals(prof._id)){%>
+													<%if(prof.isMarks == "true"){%>
+														<td><%=subject.total%> %</td>
+													<%}else{%>
+														<td>-</td>
+													<%}%>
+												<%}%>
+											<%})%>
+										<%}%>
+									<%})%>
+								<%})%>
+							<%}%>
+						<%})%>
+						
+						
+						
+						<% stdmarks.forEach(function(std){ %>
+							<%if(std.stdId.equals(student._id)){ %>
+								<%std.subjects.forEach(function(subject){ %>
+									<%profs.forEach(function(prof){ %>
+										<%if(subject.profId.equals(prof._id)){ %>
+											<%if(prof.isMarks == "true"){ %>
+												<%total += subject.total; %>
+												<%n+=1%>
+											<%} %>
+										<%}%>
+									<% }) %>
+								<% }) %>
+								<%if(n==0){ %>
+									<td>-</td>
+								<% }else{%>
+									<%if((total/n).toFixed(2) < 33){%>
+										<td class="table-danger"><%=(total/n).toFixed(2)%> %</td>	
+									<%}else{%>
+										<td><%=(total/n).toFixed(2)%> %</td>
+									<%}%>
+									<td></td>
+								<%} %>
+
+							<% } %>
+						<% }) %>
+						
+						
+						
+					</tr>
+				<%})%>
+			</tbody>
+		</table>
+			<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+		</div>
+	</div>
+</div>
+<%- include("../partials/footer") %>

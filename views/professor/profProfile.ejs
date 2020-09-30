@@ -1,0 +1,43 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron" style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/prof/<%=prof._id%>/atend"><button type="button" class="btn btn-warning">Attndence</button></a>
+	<a href="/prof/<%=prof._id%>/atend/classdate"><button type="button" class="btn btn-warning">Show Attndence</button></a>
+	<a href="/prof/<%=prof._id%>/feedmarks"><button type="button" class="btn btn-warning">Feed Marks</button></a>
+	<a href="/prof/<%=prof._id%>/smarks"><button type="button" class="btn btn-warning">Show Marks</button></a>
+	<a href="/prof/<%=prof._id%>/assignments"><button type="button" class="btn btn-warning">Assignments</button></a>
+</div>
+<div class="container">
+
+<table class="table" style="width:80%;margin:10px auto;text-align:center">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col"><%= prof.name%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>College Id.</td>
+      <td><%=prof.collegeId%></td>
+    </tr>
+    <tr>
+      <td>Subject</td>
+      <td><%= prof.subject%></td>
+    </tr>
+    <tr>
+      <td>Contact no.</td>
+      <td><%= prof.mobileNum%></td>
+    </tr>
+	 <tr>
+      <td>Email Id</td>
+      <td><%= prof.email%></td>
+    </tr>
+	 
+  </tbody>
+</table>
+		
+</div>
+
+<%- include("../partials/footer") %>

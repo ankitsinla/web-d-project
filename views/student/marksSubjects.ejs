@@ -1,0 +1,48 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h3><%=currentUser.username%></h3>
+	<a href="/std/profile"><button class="btn btn-secondary">Home</button></a>	
+	
+</div>
+
+<div class="container">
+<h1 style='text-align:center;'>
+	Marks
+</h1>
+	<hr>
+	<table class="table" style="width:90%;margin:auto;text-align:center">
+	  <thead class="thead-dark">
+		<tr>
+			<th scope="col">Subject</th>
+			<th scope="col">Marks</th>
+			<th scope="col">More Info</th>
+		</tr>
+	  </thead>
+		<tbody>
+			<%marks.subjects.forEach(function(subject){%>
+				<%profs.forEach(function(prof){%>
+					<%if(prof._id.equals(subject.profId)){%>
+						<tr>
+							<td><%=prof.subject%></td>
+							<%if(subject.fterm.feed == 'false' && subject.sterm.feed == 'false' && subject.internal.feed == 'false' && subject.sem.feed == 'false'){%>
+								 <td>-</td>
+							<%}else{%>
+								<%if(subject.total < 33){%>
+									<td class="table-danger"><%=subject.total.toFixed(2)%> %</td>
+								<%}else{%>
+									<td ><%=subject.total.toFixed(2)%> %</td>
+								<%}%>
+							<%}%>
+							<td>
+								<a href="/std/<%=marks.stdId%>/marks/<%=prof.subject%>"><button class="btn btn-secondary">more info</button></a>
+							</td>
+						</tr>
+					<%}%>
+				<%})%>
+			<%})%>
+		</tbody>
+	</table>
+</div>
+
+<%- include("../partials/footer") %>

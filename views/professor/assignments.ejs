@@ -1,0 +1,48 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/prof/profile"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 m-auto">
+        <h1 class="text-center display-4 my-4">New Assignment</h1>
+       <form action="/prof/<%=prof._id%>/assignment/upload" method="POST" enctype="multipart/form-data">
+        <div class="custom-file mb-3">
+          <input type="file" name="file" id="file" class="custom-file-input" required>
+          <label for="file" class="custom-file-label">Choose File</label>
+        </div>
+     <input type="submit" value="Submit" class="btn btn-primary btn-block">
+</form>
+
+				
+		
+<% if(files){ %>
+		  	<% var flag =0; %>
+          	<% files.forEach(function(file) { %>
+		  		<% prof.assignments.forEach(function(assignment){ %>
+		  			<% if(file._id.equals(assignment.id)){ %>
+		  				<% flag =1; %>
+		  				<div class="card card-body mb-3">
+							<a href = "/prof/<%=prof._id%>/files/<%= file.filename %>" target = "_blank"><%= assignment.topic %></a>
+							<form method="POST" action="/prof/<%=prof._id%>/assignment/<%= file._id %>?_method=DELETE">
+								<button class="btn btn-danger btn-block mt-4">Delete</button>
+							</form>
+						</div>
+		  			<% } %>
+		  		<% }) %>
+			<% }) %>
+		  <% if(flag == 0){ %>
+		  	<p>No Assignments</p>
+		  <% } %>
+<% } else { %>
+	<p>No files to show</p>
+<% } %>
+      </div>
+    </div>
+  </div>
+
+
+<%- include("../partials/footer") %>

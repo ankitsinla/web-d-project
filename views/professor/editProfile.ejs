@@ -1,0 +1,20 @@
+<%- include("../partials/header") %>
+
+<div class='container'>
+	<div class="jumbotron">
+		<h1><%=currentUser.username%></h1>
+	</div>
+	<form action="/prof/profile/edit" method="POST">
+		<input type="text" placeholder="Name" name="prof[name]">
+		<input type="text" placeholder="College Id" name="prof[collegeId]">
+		<input type="text" placeholder="Subject" name="prof[subject]">
+		<input type="text" placeholder="Mobile No." name="prof[mobileNum]">
+		<button>
+			Submit
+		</button>
+	</form>
+	
+</div>
+
+
+<%- include("../partials/footer") %>

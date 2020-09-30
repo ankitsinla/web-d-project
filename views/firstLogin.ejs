@@ -1,0 +1,38 @@
+<%- include("partials/header") %>
+<div class="container">
+	
+	<div class="jumbotron" style="text-align:center">
+			<h2>
+				First LogIn
+			</h2>
+	</div>
+</div>
+	<div class ="row" style="margin:auto;width:60%">
+		<div class='col-lg-12 '>
+		<form action="/registernew" method="POST" >
+			<h2 class="text-center">
+				First Login Credientials
+			</h2>
+				<span>
+					<label for="std">Student</label>
+					<input name="usertype" value="Student" id="std" type="radio" required>
+					<label for="prof">Professor</label>
+					<input name="usertype" id="prof" value="Professor" type="radio">
+				</span>
+			
+			<div class="form-group">
+				<label for="username">UserId</label>
+				<input type="text" name="username" class="form-control" id="username" placeholder="username">
+			  </div>
+			  <div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" name="password" class="form-control" id="password" placeholder="Password">
+			  </div>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		</div>
+	</div>
+	
+
+
+<%- include("partials/footer") %>

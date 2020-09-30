@@ -1,0 +1,57 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/prof/profile"><button class="btn btn-secondary">Home</button></a>
+	<a href="/prof/<%=prof._id%>/atend/classdate"><button class="btn btn-secondary">Attendance</button></a>
+</div>
+
+<div class="container">
+	
+
+<h2 style='text-align:center;'>Attendance</h2>
+<h4 style='text-align:center;'><%=dt%></h4>
+<table class="table" style="width:60%;margin:auto;text-align:center">
+	<hr>
+	<thead class="thead-dark">
+	<tr>
+	 	<th  scope="col">Name</th>
+		<th  scope="col">status</th>
+	</tr>
+  </thead>
+	<tbody>
+		<% attend.forEach(function(att){ %>
+		
+			<% att.data.forEach(function(at){ %>
+				<% if(at.subject == prof.subject){ %>
+					<% var flag =0; %>
+					<tr>
+						<% students.forEach(function(student){ %>
+							<% if(student._id.equals(att.stdId)){ %>
+								<td><%=student.name%></td>
+							<% } %>
+						<% }) %>
+						<% at.attendance.forEach(function(attendances){ %>
+							<% if(attendances.attendDate == dt){ %>
+								<%if(attendances.status == "ABSENT"){%>
+									<td class="table-danger"><%=attendances.status%></td>	
+								<%}else{%>
+									<td><%=attendances.status%></td>
+								<%}%>
+								<% flag = 1; %>
+								<% return; %>
+							<% } %>
+						<% }) %>
+						<% if(flag == 0){ %>
+							<td class="table-danger">Absent</td>
+						<% } %>
+					</tr>
+				<% } %>
+			<% }) %>
+		<% }) %>
+	</tbody>
+</table>	
+		
+</div>
+
+<%- include("../partials/footer") %>

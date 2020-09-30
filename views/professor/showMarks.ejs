@@ -1,0 +1,71 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/prof/profile"><button class="btn btn-secondary">Home</button></a>	
+</div>
+
+<h2 style='text-align:center;'>
+	<%=prof.subject%>-Marks
+</h2>
+
+<table class="table" style="width:80%;margin:auto;text-align:center">
+	<thead  class="thead-dark">
+		<th  scope="col">Roll No.</th>
+		<th  scope="col">Name</th>
+		<th  scope="col">First term</th>
+		<th  scope="col">Second term</th>
+		<th  scope="col">Internal</th>
+		<th  scope="col">Semester</th>
+		<th scope="col">Percent </th>
+	</thead>
+	<tbody>
+		<%students.forEach(function(student){%>
+			<tr>
+				<td><%=student.rollno%></td>
+				<td><%=student.name%></td>
+				<%marksheet.forEach(function(marks){%>
+					<%if(student._id.equals(marks.stdId)){%>
+						<%marks.subjects.forEach(function(subject){%>
+							<%if(prof._id.equals(subject.profId)){%>
+								<%if(subject.fterm.feed == "false"){%>
+									<td>-</td>
+								<%}else{%>
+									<td><%=subject.fterm.marks%></td>
+								<%}%>
+								<%if(subject.sterm.feed == "false"){%>
+									<td>-</td>
+								<%}else{%>
+									<td><%=subject.sterm.marks%></td>
+								<%}%>
+								<%if(subject.internal.feed == "false"){%>
+									<td>-</td>
+								<%}else{%>
+									<td><%=subject.internal.marks%></td>
+								<%}%>
+								<%if(subject.sem.feed == "false"){%>
+									<td>-</td>
+								<%}else{%>
+									<td><%=subject.sem.marks%></td>
+								<%}%>
+								<%if(subject.sem.feed == "false" && subject.internal.feed == "false" && subject.sterm.feed == "false" && subject.fterm.feed == "false"){%>
+									<td>-</td>
+								<%}else{%>
+									<%if(subject.total < 33){%>
+										<td class="table-danger"><%=subject.total%></td>	
+									<%}else{%>
+										<td><%=subject.total%></td>
+									<%}%>
+								<%}%>
+								
+								<%return;%>
+							<%}%>
+						<%})%>
+					<%}%>
+				<%})%>
+			</tr>
+		<%})%>
+	</tbody>
+</table>
+
+<%- include("../partials/footer") %>

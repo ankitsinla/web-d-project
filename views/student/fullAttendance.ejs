@@ -1,0 +1,51 @@
+<%- include("../partials/header") %>
+
+<div class="jumbotron " style="text-align:center">
+		<h3><%=currentUser.username%></h3>
+	<a href="/std/profile"><button class="btn btn-secondary">Home</button></a>
+	<a href="/std/<%=stdId%>/attendance"><button class="btn btn-secondary">Attendance</button></a>
+</div>
+
+<div class="container">
+<h1 style='text-align:center;'>
+	<%=subject%> Attendance
+</h1>
+
+<table class="table" style="width:80%;margin:auto;text-align:center">
+	<thead  class="thead-dark">
+		<th  scope="col">date</th>
+		<th  scope="col">status</th>
+	</thead>
+	<tbody>
+		<%stdatd.attendance.forEach(function(std){%>
+			<tr>
+				<td><%=std.attendDate%></td>
+				<%if(std.status == "ABSENT"){%>
+					<td class="table-danger"><%=std.status%></td>	
+				<%}else{%>
+					<td><%=std.status%></td>
+				<%}%>
+				
+			</tr>
+		<%})%>
+		<tr>
+			<td>Total attendance</td>
+			<td><%=stdatd.classAttended%></td>
+		</tr>
+		<tr>
+			<td>Total Classes</td>
+			<td><%=stdatd.totalClasses%></td>
+		</tr>
+		<tr>
+			<td>% Attendance</td>
+			<%if(stdatd.totalClasses == 0){%>
+				<td>-</td>
+			<%}else{%>
+				<td><%=((stdatd.classAttended/stdatd.totalClasses)*100).toFixed(2)%>%</td>
+			<%}%>
+			
+		</tr>
+	</tbody>
+</table>
+</div>
+<%- include("../partials/footer") %>

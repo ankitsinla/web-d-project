@@ -1,0 +1,42 @@
+
+<%- include("../partials/header") %>
+
+
+
+
+<div class="jumbotron " style="text-align:center">
+		<h1><%=currentUser.username%></h1>
+	<a href="/std/<%=std._id%>/attendance"><button class="btn btn-secondary">Attendance</button></a>
+		<a href="/std/<%=std._id%>/assignments"><button class="btn btn-secondary">Assignment</button></a>
+		<a href="/std/<%=std._id%>/marks"><button class="btn btn-secondary">Marks</button></a>
+</div>
+<div class="container">
+
+<table class="table" style="width:60%;margin:auto;text-align:center">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col"><%= std.name%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Roll no.</td>
+      <td><%= std.rollno%></td>
+    </tr>
+    <tr>
+      <td>Father's Name</td>
+      <td><%= std.fathername%></td>
+    </tr>
+    <tr>
+      <td>Contact no.</td>
+      <td><%= std.mobileNum%></td>
+    </tr>
+	 
+  </tbody>
+</table>
+		
+</div>
+
+
+<%- include("../partials/footer") %>
